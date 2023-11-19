@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     __created: {
         type: Date,
         default: Date.now,
+        select: false,
     },
 
     // Required Info
@@ -32,15 +33,18 @@ const UserSchema = new mongoose.Schema({
             },
             message: (email) => `${email.value} is not a valid email address!`,
         },
+        select: false,
     },
     password: {
         type: String,
-        required: true,
+        default: "google",
         select: false,
         minLength: [6, "Password must be atleast 6 character"],
     },
 
     profilePicUrl: { type: String },
+
+    googleID: { type: String, select: false },
 });
 
 UserSchema.methods.generatePasswordReset = function () {

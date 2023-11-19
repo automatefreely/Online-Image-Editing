@@ -1,6 +1,72 @@
 const User = require("../models/user.models");
 const { sendEmail } = require("../utils/sendEmail.utils");
 const crypto = require("crypto");
+const { OAuth2Client } = require("google-auth-library");
+
+exports.googleIdVerifyAndLogin = async (req, res) => {
+    try {
+        console.log(req.body);
+        const { token } = req.body;
+        const client = new OAuth2Client();
+        async function verify() {
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+                audience:
+                    "146513608875-jknpjp0e5201t77ardbb17e7gsi13hj7.apps.googleusercontent.com", // Specify the CLIENT_ID of the app that accesses the backend
+                // Or, if multiple clients access the backend:
+                //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+            });
+            const payload = ticket.getPayload();
+            const userid = payload["sub"];
+            // If request specified a G Suite domain:
+            // const domain = payload['hd'];
+            console.log(userid);
+            const email = payload.email;
+            const name = payload.name;
+            const user = await User.findOne({ email });
+
+            if (!user) {
+                const newUser = await User.create({
+                    name,
+                    email,
+                    googleID: userid,
+                });
+                const options = {
+                    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+                    httpOnly: true,
+                };
+
+                const token = await newUser.generateToken();
+
+                return res.status(201).cookie("token", token, options).send({
+                    message: "Regitation successfully",
+                    result: newUser,
+                    token,
+                });
+            } else {
+                const options = {
+                    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+                    httpOnly: true,
+                };
+
+                const token = await user.generateToken();
+
+                return res.status(201).cookie("token", token, options).send({
+                    message: "User logged in successfully",
+                    result: user,
+                    token,
+                });
+            }
+        }
+
+        const data = await verify();
+    } catch (error) {
+        res.status(500).send({
+            result: false,
+            err: error.message,
+        });
+    }
+};
 
 exports.register = async (req, res) => {
     try {
@@ -90,7 +156,7 @@ exports.login = async (req, res) => {
 
         res.status(200).cookie("token", token, options).send({
             message: "User logged in successfully",
-            result: user,
+            result: true,
             token,
         });
     } catch (err) {

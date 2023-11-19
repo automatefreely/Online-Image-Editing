@@ -44,3 +44,71 @@ input.addEventListener("change", () => {
         });
     });
 });
+
+function parseJwt(token) {
+    var base64Url = token.split(".")[1];
+    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    var jsonPayload = decodeURIComponent(
+        window
+            .atob(base64)
+            .split("")
+            .map(function (c) {
+                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+}
+
+async function handleCredentialResponse(googleUser) {
+    console.log("googleUser", googleUser);
+    console.log("googleUser", parseJwt(googleUser.credential));
+    // send this credential to backend
+
+    const URL = "http://localhost:4000/api/user/signin/google";
+    const data = { token: googleUser.credential };
+    try {
+        const response =await  fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+            credentials: "include",
+        });
+        const result = await response.json();
+        console.log(result);
+
+        if (result.result) {
+            window.location.href = "http://localhost:4000/dashboard";
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const data = { email, password };
+
+    const URL = "http://localhost:4000/api/user/login";
+    try {
+        const response = await fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+            credentials: "include",
+        });
+        const result = await response.json();
+        console.log(result);
+        if(result.result) {
+            window.location.href = "http://localhost:4000/dashboard";
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}

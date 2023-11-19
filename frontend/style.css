@@ -124,3 +124,71 @@ canvas {
     /* Width for desktop */
   }
 }
+
+.login-wrp {
+  max-width: 400px;
+  width: 100%;
+  margin: 50px auto;
+}
+
+.top {
+  background: #131BE1;
+  height: 300px;
+  position: relative
+}
+
+.logo {
+  position: absolute;
+  max-width: 100px;
+  top: 28%;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+
+.bottom {
+  background: #eee;
+  height: 300px;
+  position: relative;
+}
+
+.bottom .login-form {
+  background: #fff;
+  position: absolute;
+  box-shadow: 1px 1px 10px #999;
+  width: 90%;
+  top: -38%;
+  left: 5%;
+  border-radius: 5px;
+  padding: 50px 40px;
+}
+
+.btn {
+  border-radius: 30px
+}
+
+.btn-primary {
+  background: #F8C407;
+  border-color: #F8C407;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #F8C407;
+  border-color: #F8C407
+}
+
+.checkbox-inline {
+  cursor: pointer;
+}
+
+.btn-link {
+  color: #999;
+  margin-top: 10px;
+  display: block
+}
+
+.btn-link:hover,
+.btn-link:focus {
+  color: #777;
+}
