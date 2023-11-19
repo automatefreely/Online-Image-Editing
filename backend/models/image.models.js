@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 
 const ImageSchema = new mongoose.Schema({
     __created: {
@@ -22,4 +19,12 @@ const ImageSchema = new mongoose.Schema({
         ref: "user",
         required: true,
     },
+    url: {
+        type: String,
+        required: true,
+    },
 });
+
+const Image = mongoose.model("image", ImageSchema);
+
+module.exports = Image;

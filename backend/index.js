@@ -17,6 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 
 const userRoutes = require("./routes/user.routes");
 app.use("/api/user", userRoutes);
+const postRoutes = require("./routes/post.routes");
+app.use("/api/post", postRoutes);
+
+
 app.get("/api", (req, res) => {
     res.send("API live");
 });
@@ -42,11 +46,8 @@ app.get("/dashboard", (req, res) =>
     res.sendFile(path.join(_dirname, "../frontend/dashboard.html"))
 );
 
-
-
-
-
-
+app.use("/api/public/posts", express.static("uploads/public/posts"));
+app.use("/api/public/users", express.static("uploads/public/users"));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
