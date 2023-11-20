@@ -1,4 +1,7 @@
 # Online-Image-Editing
-This is  to participate in a skill assessment exercise designed to showcase your full stack development capabilities of WEBYAPAR SOLUTIONS PVT. LTD.
+
+##features
+1. To crop the images online with tracking of all the uploads done till now.
+2. The backend is in node and frontend in normal HTML, CSS, Bootstrap and js
 
 
