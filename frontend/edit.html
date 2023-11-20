@@ -38,30 +38,45 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Gallary</a>
+                        <!-- add logo -->
+                        <img
+                            src="logo.png"
+                            alt="/images"
+                            width="42px"
+                            class=""
+                        />
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-lg-left" href="/">Gallary</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="edit">Edit</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onclick="logout()" href="/login">Logout</a>
+                        <a class="nav-link" onclick="logout()" href="/login"
+                            >Logout</a
+                        >
                     </li>
                 </ul>
             </div>
         </div>
-
-        <div class="preview-wrapper m-4">
-            <div id="image-box" class="image-container"></div>
-        </div>
-        <div class="editor-buttons">
-            <input
-                type="file"
-                id="upload-file"
-                placeholder="Upload a Picture"
-            />
-            <label for="upload-file">Upload a Picture</label>
-            <button id="download-btn">Download Image</button>
-            <br />
+        <div
+            class="d-flex"
+            style="justify-content: space-around; align-items: center;flex-wrap: wrap;"
+        >
+            <div class="preview-wrapper m-4">
+                <div id="image-box" class="image-container w-100" style="max-width:80%"></div>
+            </div>
+            <div class="editor-buttons">
+                <input
+                    type="file"
+                    id="upload-file"
+                    placeholder="Upload a Picture"
+                />
+                <label for="upload-file">Upload a Picture</label>
+                <button id="download-btn">Download Image</button>
+                <br />
+            </div>
         </div>
 
         <!-- Optional JavaScript -->

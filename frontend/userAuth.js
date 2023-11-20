@@ -50,6 +50,12 @@ class User {
                 this.getProfile();
 
                 this.currentPost = result.post;
+
+                // local storage
+                localStorage.setItem(
+                    "currentPost",
+                    JSON.stringify(this.currentPost)
+                );
             }
         } catch (error) {
             console.log(error);
