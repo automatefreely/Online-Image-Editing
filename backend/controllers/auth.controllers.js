@@ -326,3 +326,23 @@ exports.resetPassword = async (req, res) => {
         });
     }
 };
+
+exports.logout = async (req, res) => {
+    try {
+        const options = {
+            expires: new Date(Date.now()),
+            httpOnly: true,
+        };
+
+        return res.status(200).cookie("token", "", options).send({
+            result: true,
+            message: "User logged out successfully",
+        });
+    } catch (error) {
+        res.status(500).send({
+            result: false,
+            message: "Internal server error",
+            error: error.message,
+        });
+    }
+};

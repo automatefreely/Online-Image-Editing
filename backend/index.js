@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
 const connectDB = require("./utils/db.utils");
 
@@ -13,13 +14,13 @@ app.use(
         secret: "SECRET",
     })
 );
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 const userRoutes = require("./routes/user.routes");
 app.use("/api/user", userRoutes);
 const postRoutes = require("./routes/post.routes");
 app.use("/api/post", postRoutes);
-
 
 app.get("/api", (req, res) => {
     res.send("API live");
@@ -34,6 +35,9 @@ app.get("/", (req, res) =>
     res.sendFile(path.join(_dirname, "../frontend/index.html"))
 );
 app.get("/edit", (req, res) =>
+    res.sendFile(path.join(_dirname, "../frontend/edit.html"))
+);
+app.get("/edit/:postId", (req, res) =>
     res.sendFile(path.join(_dirname, "../frontend/edit.html"))
 );
 app.get("/login", (req, res) =>

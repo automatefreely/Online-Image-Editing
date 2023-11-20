@@ -35,14 +35,8 @@ a{
   text-align: center;
 }
 
-.filter-group {
-  display: inline-block;
-  margin: 5px 15px;
-}
-
 body {
   text-align: center;
-  margin: 20px auto;
   font-family: "Lato";
 }
 

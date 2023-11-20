@@ -3,10 +3,10 @@ const jwt = require("jsonwebtoken");
 
 exports.isAuthorised = async (req, res, next) => {
     try {
-        // const token = req.cookies.token;
-        const token = req.headers["authorization"];
+        const token = req.cookies.token;
+        // const token = req.headers["authorization"];
 
-        // console.log(token);
+        console.log(req.cookies);
         if (!token) {
             return res.status(401).send({
                 result: false,
